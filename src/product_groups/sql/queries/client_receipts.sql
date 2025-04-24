@@ -1,3 +1,4 @@
+
 -- Назначение: Выгрузить чеки с деталями по клиентам, товарам, total_turnover и общим оборотом по магазину
 -- Аргументы: start_date, end_date, store_id (опц.), city (опц.), checkout_items
 
@@ -30,6 +31,8 @@ FROM (
         r.opened_date,
         r.store_id,
         i.model_id,
+        m.model_name_ru,
+        m.model_name_en,
         i.dept,
         i.subdept,
         i.class_id,
@@ -42,6 +45,7 @@ FROM (
         st.store_turnover
     FROM assortment_ods.dds_receipt_lines_public AS r
     LEFT JOIN assortment_ods.items AS i ON r.line_item_id = i.item
+    LEFT JOIN test.models AS m ON i.model_id = m.model_id
     LEFT JOIN item_turnover AS it ON r.line_item_id = it.line_item_id
     LEFT JOIN store_total_turnover AS st ON r.store_id = st.store_id
     {% if city %}
@@ -71,6 +75,8 @@ FROM (
         r.opened_date,
         r.store_id,
         i.model_id,
+        m.model_name_ru,
+        m.model_name_en,
         i.dept,
         i.subdept,
         i.class_id,
