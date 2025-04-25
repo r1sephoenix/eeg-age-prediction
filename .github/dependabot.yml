@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+    allowed-updates:
+      - dependency-type: "all"
+    assignees:
+      - "ilyamikheev"
+    versioning-strategy: "auto"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: "pandas"
+        versions: [">=2.2.0"]
+      - dependency-name: "scikit-learn"
+        versions: [">=1.4.0"]
